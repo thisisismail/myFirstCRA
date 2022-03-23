@@ -1,38 +1,85 @@
-.App {
+* {
+  box-sizing: border-box;
+}
+
+.Album-container {
+  max-width: 1000px;
+  min-width: 320px;
+  margin: 0 auto;
+  padding: 5px;
+  border: 0px solid black;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Album-item {
+  display: inline-block;
+  position: relative;
+  border-radius: 20px;
+  width: 320px;
+  height: 740px;
+  text-align: center;
+  margin: 5px auto;
+  background-color: whitesmoke;
+  overflow: hidden;
+  box-shadow: 0px 0px 30px 0px rgb(141, 141, 141);
+  margin: 15px;
+  
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Item-image img {
+  width: 320px;
+  height: 320px;
+  object-fit: contain;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Item-image-shadow {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  border-radius: 20px;
+  top: -324px; /*it gives 4px space, so we should eliminate it*/
+  box-shadow: inset 0px 0px 80px 0px #000000;
 }
 
-.App-link {
-  color: #61dafb;
+.Item-title {
+  position: relative;
+  top: -344px;
+  padding-top: 40px;
+  background-color: whitesmoke;
+  border-radius: 20px 20px 0px 0px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Item-title span {
+  font-weight: 400;
 }
+
+.Item-button button{
+  display: block;
+  position: relative;
+  top: -560px;
+  left: 240px;
+  height: 60px;
+  width: 60px;
+  border-radius: 50px;
+  border: 0px;
+  background-color: cornflowerblue;
+  text-align: center;
+  box-shadow: -5px 10px 50px 0px cornflowerblue;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.Item-button button:hover {
+  background-color: rgb(100, 120, 237);
+}
+
+.Item-button button:active {
+  font-size: 10px;
+}
+
+.Item-button i {
+  padding-left: 6px;
+  color: whitesmoke;
+}
+
+
