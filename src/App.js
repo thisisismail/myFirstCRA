@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
       </header>
       <body className="App-body">
-        <div id="example" className="Album-container">
+        <div className="Album-container">
           
           <Album
             image={spotify.album.images[0].url} 
