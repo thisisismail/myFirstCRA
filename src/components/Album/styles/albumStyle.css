@@ -1,0 +1,75 @@
+.Album-container {
+    max-width: 1000px;
+    min-width: 320px;
+    margin: 0 auto;
+    padding: 5px;
+    border: 0px solid black;
+    text-align: center;
+  }
+  
+  .Album-item {
+    display: inline-block;
+    position: relative;
+    border-radius: 20px;
+    width: 320px;
+    height: 740px;
+    text-align: center;
+    margin: 5px auto;
+    background-color: whitesmoke;
+    overflow: hidden;
+    box-shadow: 0px 0px 30px 0px rgb(141, 141, 141);
+    margin: 15px;
+    
+  }
+  
+  .Item-image img {
+    width: 320px;
+    height: 320px;
+    object-fit: contain;
+    border-radius: none;
+  }
+  
+  .Item-image-shadow {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    border-radius: 20px 20px 0px 0px;
+    top: -324px; /*it gives 4px space, so we should eliminate it*/
+    box-shadow: inset 0px 0px 80px 0px #000000;
+  }
+  
+  .Item-title {
+    width: 320px;
+    position: relative;
+    top: -398px;
+    padding: 40px 10px 0px 10px;
+    background-color: whitesmoke;
+    border-radius: 20px 20px 0px 0px;
+    border: 0px solid black;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+  }
+  .Item-title h2 {
+    display: block;
+    width: 300px;
+    border: 0px solid black;
+    margin: 0px auto;
+    white-space: normal;
+    overflow: hidden;
+    /*white-space: nowrap;*/ /*to make ... as the text is overflowing the barrier.
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+  }
+
+  .Item-title h4 {
+    border: 0px solid black;
+    margin: 10px 0px 20px 0px;
+    font-weight: 600;
+  }
+  
+  .Item-title span {
+    font-weight: 400;
+    font-style: italic;
+  }
