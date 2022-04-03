@@ -1,9 +1,7 @@
 import Album from './components/Album/index.js';
 import spotify from './data/spotify.json';
+import SpotifyAPIFirstStep from './components/Spotify/SpotifyAPIFirstStep.js'
 import './App.css';
-
-
-
 
 function App() {
 
@@ -16,13 +14,24 @@ function App() {
       
       <body className="App-body">
         <div className="Album-container">
+          <SpotifyAPIFirstStep/>
+          {/* <Album */}
+            {/* image={spotify.album.images[0].url} 
+            name={spotify.album.name} 
+            type={spotify.album.type} */}
+            {/* artist={spotify.album.artists[0].name}/> */}
           
-          <Album
-            image={spotify.album.images[0].url} 
-            name={spotify.album.name} /**last state variable, it takes data from source data file */
-            type={spotify.album.type}
-            artist={spotify.album.artists[0].name}
-          />
+          {/* <Album */}
+            {/* image={spotify.album.images[0].url} 
+            name={spotify.album.name} 
+            type={spotify.album.type} */}
+            {/* artist={spotify.album.artists[0].name}/> */}
+          
+          {/* <Album */}
+            {/* image={spotify.album.images[0].url} 
+            name={spotify.album.name} 
+            type={spotify.album.type} */}
+            {/* artist={spotify.album.artists[0].name}/> */}
           
         </div>
       </body>
