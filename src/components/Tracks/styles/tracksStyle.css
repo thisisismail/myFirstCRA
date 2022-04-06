@@ -1,11 +1,20 @@
 .track-items {
   position: relative;
-  top: -400px;
+  top: 20px;
   border: 0px solid black;
-  width: 300px;
+  width: 720px;
   margin: 0px auto;
   font-size: 14px;
   text-align: left;
+}
+
+#track-text {
+  border: 0px solid black;
+  width: 620px;
+  position: relative;
+  bottom: 64px;
+  left: 100px;
+  margin-bottom: -30px;
 }
 
 .track-items h3 {
@@ -17,15 +26,17 @@
 .track-items h4 {
   font-weight: 400;
   border: 0px solid black;
-  margin: 0px 0px 5px 0px;
+  margin: 0px 0px 10px 0px;
 }
 
 #numbering {
   display: block;
+  height: 64px;
+  line-height: 64px;
   float: left;
   border: 0px solid black;
   margin: 0px;
-  padding: 8px 8px 8px 0px;
+  padding:0px 8px 0px 0px;
   color: grey;
 }
 
@@ -35,10 +46,16 @@
   float: right;
   border: 0px solid black;
   font-weight: 400;
-  top: -10px;
+  top: 4px;
+  right: 26px;
 }
 
 #track-sign {
   font-weight: 400;
   font-style: italic;
+}
+
+#cover-image {
+  display: inline-block;
+  border: 0px solid black;
 }

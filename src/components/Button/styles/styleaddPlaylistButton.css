@@ -1,0 +1,14 @@
+.addPlaylist button{
+  display: block;
+  position: absolute;
+  z-index: 11;
+  bottom: 16px;
+  right: 0px;
+  height: 20px;
+  width: 80px;
+  border-radius: 50px;
+  border: 0px;
+  background-color: rgb(229, 233, 240);
+  color: rgb(112, 112, 112);
+}
+

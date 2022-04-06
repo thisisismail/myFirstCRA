@@ -5,24 +5,24 @@ import AlbumImage from './AlbumImage';
 import AlbumTitle from './AlbumTitle';
 import './styles/albumStyle.css';
 
-const Album = (props) => { /* don't forget to put the props parameter in order to use props */
-    return (
-        <div className="Album-item">
-          <AlbumImage
-            image={props.image}
-          />
-          <PlayButton/>
-          <AlbumTitle 
-            name={props.name} 
-            type={props.type}
-            artist={props.artist}
-          />
-          <Tracks
-            name={props.name} /**[variable from previous state]={props.[variable of the next state, can be a different name from this state]} */
-          />
-          <div></div>
-        </div>
-    );
+const Album = ({getUserID}) => {
+  return (
+      <div className="Album-item">
+        <form onSubmit={getUserID}>
+          <ul>
+            <li>
+              <label>Title</label><br></br>
+              <input type="text"></input>
+            </li>
+            <li>
+              <label>Description</label><br></br>
+              <textarea></textarea>
+            </li>
+          </ul>
+          <button type="submit" className="">CREATE PLAYLIST</button>
+        </form>
+      </div>
+  );
 };
 
 export default Album;

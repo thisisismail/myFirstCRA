@@ -1,40 +1,19 @@
 .Item-button button{
     display: block;
-    height: 60px;
-    width: 60px;
-    border-radius: 50px;
-    border: 0px;
-    background-color: cornflowerblue;
     text-align: center;
-    box-shadow: -5px 10px 50px 0px cornflowerblue;
     cursor: pointer;
     transition: 0.3s;
   }
   
   .Item-button button:hover {
     background-color: rgb(100, 120, 237);
+    color: whitesmoke;
   }
   
   .Item-button button:active {
     font-size: 10px;
   }
   
-  .Item-button i {
-    padding-left: 6px;
-    color: whitesmoke;
-  }
 
-  .play {
-    position: relative;
-    z-index: 11;
-    top: -368px;
-    left: 240px;
-  }
-
-  .addPlaylist {
-    position: relative;
-    z-index: 11;
-    top: -500px;
-  }
 
   
