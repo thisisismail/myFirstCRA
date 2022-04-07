@@ -2,7 +2,7 @@ import React from 'react';
 import './styles/tracksStyle.css';
 import AddPlaylistButton from '../Button/AddPlaylistButton.js'
 
-export default function Tracks({apidata, setSelectsong, selectsong}) {
+export default function Tracks({apidata, setSelectedsong, selectedsong}) {
 
   let iteration = 0;
 
@@ -22,8 +22,7 @@ export default function Tracks({apidata, setSelectsong, selectsong}) {
           <span id="track-sign"> {v.type}</span>
           <span id="duration">{msecToSec(v.duration_ms)}</span>
         </h4>
-        <AddPlaylistButton uri={v.uri} setSelectsong={setSelectsong} selectsong={selectsong}/>
-        {/* <AddPlaylistButton/> */}
+        <AddPlaylistButton uri={v.uri} setSelectedsong={setSelectedsong} selectedsong={selectedsong}/>
       </div>
     </div>
   ));

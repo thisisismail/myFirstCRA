@@ -10,115 +10,136 @@ const AUTH_URL = `https://accounts.spotify.com/authorize?response_type=token&cli
 
 export default function SpotifySearch() {
 
-  const [getauthapi, setGetauthapi] = useState('');
-  const [submitgetauthapi, setSubmitgetauthapi] = useState(false);
-  const [input, setInput] = useState('');
-  const [submitinput, setSubmitinput] = useState(false);
-  const [message, setMessage] = useState('YOU ARE NOT AUTHORIZED');
-  const [login, setLogin] = useState('LOGIN');
+  const [auth, setAuth] = useState('');
+  const [btnauth, setBtnauth] = useState(false);
+  const [search, setSearch] = useState('');
+  const [btnsearch, setBtnsearch] = useState(false);
+  const [authmsg, setAuthmsg] = useState('YOU ARE NOT AUTHORIZED');
+  const [loginmsg, setLoginmsg] = useState('LOGIN');
   const [apidata, setApidata] = useState([]);
-  const [playlist, setPlaylist] = useState([]);
-  const [selectsong, setSelectsong] = useState([]);
+  const [selectedsong, setSelectedsong] = useState([]);
   const [userid, setUserid] = useState('');
+  const [playlistid, setPlaylistid] = useState('');
+  const [playlist, setPlaylist] = useState({
+    title: '',
+    description: '',
+    button: false,
+  });
   
   useEffect(() => {
-    const token = 
-      window.location.hash && window.location.hash
+    const token = window.location.hash && window.location.hash
         .substring(1)
         .split("&")
         .find((v) => v.startsWith("access_token"))
         .replace("access_token=", "");
-    setGetauthapi(token);
+    setAuth(token);
   }, []);
 
   useEffect(() =>{
-    if(getauthapi !== ''){
-      setMessage('YOU ARE AUTHORIZED'); setLogin('RELOGIN')};
-  }, [getauthapi]);
+    if(auth !== ''){
+      setAuthmsg('YOU ARE AUTHORIZED'); setLoginmsg('RELOGIN')};
+  }, [auth]);
 
   useEffect(() => {
-    getDataAPI();
-  }, [submitinput]);
+    getSearch();
+  }, [btnsearch]);
 
   useEffect(() => {
-    makePlaylist();
+    createNewPlaylist();
   }, [userid]);
 
-  const getDataAPI = async () => {
-    const token = getauthapi;
-    const search = input;
-    if(token === '' || search === ''){return 0};
-    const result = 
-      await fetch(`https://api.spotify.com/v1/search?q=${search}&type=track&limit=12`, { 
+  useEffect(() => {
+    inputToPlaylist();
+  }, [playlistid])
+
+  const getSearch = async () => {
+    if(auth === '' || search === ''){return 0};
+    await fetch(`https://api.spotify.com/v1/search?q=${search}&type=track&limit=12`, { 
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${auth}`,
         },
       }).then(response => response.json())
-        .then(result => {
-          setApidata(result.tracks.items); 
-          return result;
-        })
-        .then(result => console.log(result.tracks.items))
+        .then(result => setApidata(result.tracks.items))
   };
 
   const getUserID = async (e) => {
-    if(getauthapi === ''){return 0}
+    if(auth === ''){return 0}
     e.preventDefault();
-    const result = 
-      await fetch(`https://api.spotify.com/v1/me`, {
+    await fetch(`https://api.spotify.com/v1/me`, {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${getauthapi}`,
+          Authorization: `Bearer ${auth}`,
         }
       }).then(response => response.json())
-        .then(result => {console.log(result.id);console.log(selectsong); setUserid(result.id)})
+        .then(result => setUserid(result.id))
   };
   
-  const makePlaylist = async (e) => {
+  const createNewPlaylist = async () => {
     if(userid === ''){return 0}
     const newPlaylist = {
-      "name": "Testing",
-      "description": "New playlist description",
-      "public": false
+      "name": playlist.title,
+      "description": playlist.description,
+      "public": false,
     };
-    console.log(selectsong)
-    const result = 
-      await fetch(`https://api.spotify.com/v1/users/${userid}/playlists`, {
+    await fetch(`https://api.spotify.com/v1/users/${userid}/playlists`, {
         method: 'POST',
         body: JSON.stringify(newPlaylist),
         headers: {
-          Authorization: `Bearer ${getauthapi}`
-        }
-      })
-        .then(response => response.json())
+          Authorization: `Bearer ${auth}`
+        },
+      }).then(response => response.json())
+        .then(result => setPlaylistid(result.id))
   };
+
+  const inputToPlaylist = async () => {
+    let tracks = selectedsong
+      .toString()
+      .replace(/:/g,"%3A")
+      .replace(/,/g,"%2C"); //convert array songs, so that can be processed directly in URL
+    if(playlistid === ''){return 0};
+    await fetch(`https://api.spotify.com/v1/playlists/${playlistid}/tracks?uris=${tracks}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${auth}`,
+        "Content-Type": "application/json"
+      },
+    }).then(response => response.json())
+      .then(result => console.log(result))
+      .then(() => console.log('Playlist Created'))
+  }
 
   const handleBtnAuth = () => {
-    setSubmitgetauthapi(!submitgetauthapi);
+    setBtnauth(!btnauth);
     console.log('Getting New Auth Token API ....');
   };
-
-  const submitInput = () => {
-    setSubmitinput(!submitinput);
-    getDataAPI();
-    console.log(message);
-    console.log('Submitted Input: ' + input);
+  
+  const handleBtnSearch = () => {
+    setBtnsearch(!btnsearch);
+    getSearch();
+    console.log(authmsg);
+    console.log('Submitted Input: ' + search);
   };
 
-  const getInput = (v) => {
-    setInput(v.target.value);
+  const getInputSearch = (v) => {
+    setSearch(v.target.value);
   };
+
+  const getInputPlaylist = v => {
+    const {name, value} = v.target;
+    setPlaylist({...playlist, [name]: value});
+  }
 
   return (
     <div>
-      <Album getUserID={getUserID}/>
-      <div>{message}</div>
-        <a href={AUTH_URL}><button onClick={handleBtnAuth} href={AUTH_URL}>{login}</button></a>
-        <SearchBar getInput={getInput} submitInput={submitInput}/>
-        {/* <input type="submit" onClick={seeSelected}></input> */}
+      <Album getUserID={getUserID} getInputPlaylist={getInputPlaylist} playlist={playlist}/>
+      <div>{authmsg}</div>
+        <a href={AUTH_URL}><button onClick={handleBtnAuth} href={AUTH_URL}>{loginmsg}</button></a>
+        <SearchBar getInputSearch={getInputSearch} handleBtnSearch={handleBtnSearch}/>
+        {/* <search type="submit" onClick={seeSelected}></search> */}
         <div>
-          <Tracks apidata={apidata} setSelectsong={setSelectsong} selectsong={selectsong}/>
+          <Tracks apidata={apidata} setSelectedsong={setSelectedsong} selectedsong={selectedsong}/>
         </div>
     </div>
   )

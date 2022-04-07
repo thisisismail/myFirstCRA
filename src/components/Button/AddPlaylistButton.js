@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react';
 import './styles/styleButton.css';
 import './styles/styleaddPlaylistButton.css';
 
-const AddPlaylistButton = ({uri, setSelectsong, selectsong}) => {
+const AddPlaylistButton = ({uri, setSelectedsong, selectedsong}) => {
   const btnOn = {backgroundColor: "rgb(100, 120, 237)", color: "rgb(255, 255, 255)"};
   const btnOff = {backgroundColor: "rgb(229, 233, 240)"};
 
@@ -14,7 +14,7 @@ const AddPlaylistButton = ({uri, setSelectsong, selectsong}) => {
   useEffect(() => {
     btnstatus ? setBtnmessage('selected') : setBtnmessage('select');
     btnstatus ? setBtncolor(btnOn) : setBtncolor(btnOff);
-    btnstatus ? setSelectsong(selectsong.concat(uri)) : setSelectsong(selectsong);
+    btnstatus ? setSelectedsong(selectedsong.concat(uri)) : setSelectedsong(selectedsong);
   }, [btnstatus])
 
   const clickHandler = () => {
