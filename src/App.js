@@ -1,6 +1,7 @@
 import Album from './components/Album/index.js';
 import SpotifySearch from './components/Spotify/index.js';
 import './App.css';
+import Loginpage from './components/LoginPage/index.js'
 
 function App() {
 
@@ -15,7 +16,8 @@ function App() {
         <div className="Album-container">
         {/* <Album/> */}
         </div>
-        <SpotifySearch/>
+        {/* <SpotifySearch/> */}
+        <Loginpage/>
       </div>
       
     </div>
