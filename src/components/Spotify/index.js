@@ -3,14 +3,11 @@ import {useState, useEffect} from 'react';
 import SearchBar from '../SearchBar/index.js';
 import Tracks from '../Tracks/index.js';
 import Album from '../Album/index.js';
+import {connect} from 'react-redux';
+import tokenActions from '../../Redux/Token/actions/index.js'
 
-const ID = '8699333de5604b2587b73f95f3c2daa7';
-const REDIRECT_URI = 'http://localhost:3000';
-const AUTH_URL = `https://accounts.spotify.com/authorize?response_type=token&client_id=${ID}&scope=playlist-modify-private%20user-read-private&redirect_uri=${REDIRECT_URI}`;
+const SpotifySearch = (props) => {
 
-export default function SpotifySearch() {
-
-  const [auth, setAuth] = useState('');
   const [btnauth, setBtnauth] = useState(false);
   const [search, setSearch] = useState('');
   const [btnsearch, setBtnsearch] = useState(false);
@@ -25,20 +22,11 @@ export default function SpotifySearch() {
     description: '',
     button: false,
   });
-  
-  useEffect(() => {
-    const token = window.location.hash && window.location.hash
-        .substring(1)
-        .split("&")
-        .find((v) => v.startsWith("access_token"))
-        .replace("access_token=", "");
-    setAuth(token);
-  }, []);
 
   useEffect(() =>{
-    if(auth !== ''){
+    if(props.tokenFromRedux !== ''){
       setAuthmsg('YOU ARE AUTHORIZED'); setLoginmsg('RELOGIN')};
-  }, [auth]);
+  }, [props.tokenFromRedux]);
 
   useEffect(() => {
     getSearch();
@@ -53,23 +41,23 @@ export default function SpotifySearch() {
   }, [playlistid])
 
   const getSearch = async () => {
-    if(auth === '' || search === ''){return 0};
+    if(props.tokenFromRedux === '' || search === ''){return 0};
     await fetch(`https://api.spotify.com/v1/search?q=${search}&type=track&limit=12`, { 
         method: "GET",
         headers: {
-          Authorization: `Bearer ${auth}`,
+          Authorization: `Bearer ${props.tokenFromRedux}`,
         },
       }).then(response => response.json())
         .then(result => setApidata(result.tracks.items))
   };
 
   const getUserID = async (e) => {
-    if(auth === ''){return 0}
+    if(props.tokenFromRedux === ''){return 0}
     e.preventDefault();
     await fetch(`https://api.spotify.com/v1/me`, {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${auth}`,
+          Authorization: `Bearer ${props.tokenFromRedux}`,
         }
       }).then(response => response.json())
         .then(result => setUserid(result.id))
@@ -86,7 +74,7 @@ export default function SpotifySearch() {
         method: 'POST',
         body: JSON.stringify(newPlaylist),
         headers: {
-          Authorization: `Bearer ${auth}`
+          Authorization: `Bearer ${props.tokenFromRedux}`
         },
       }).then(response => response.json())
         .then(result => setPlaylistid(result.id))
@@ -102,7 +90,7 @@ export default function SpotifySearch() {
       method: "POST",
       headers: {
         Accept: "application/json",
-        Authorization: `Bearer ${auth}`,
+        Authorization: `Bearer ${props.tokenFromRedux}`,
         "Content-Type": "application/json"
       },
     }).then(response => response.json())
@@ -135,12 +123,18 @@ export default function SpotifySearch() {
     <div>
       <Album getUserID={getUserID} getInputPlaylist={getInputPlaylist} playlist={playlist}/>
       <div>{authmsg}</div>
-        <a href={AUTH_URL}><button onClick={handleBtnAuth} href={AUTH_URL}>{loginmsg}</button></a>
         <SearchBar getInputSearch={getInputSearch} handleBtnSearch={handleBtnSearch}/>
-        {/* <search type="submit" onClick={seeSelected}></search> */}
         <div>
           <Tracks apidata={apidata} setSelectedsong={setSelectedsong} selectedsong={selectedsong}/>
         </div>
     </div>
   )
 }
+
+const mapStateToProps = state => {
+  return{
+    tokenFromRedux: state.storeToken,
+  }
+}
+
+export default connect(mapStateToProps)(SpotifySearch);

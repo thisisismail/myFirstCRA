@@ -1,7 +1,8 @@
+import './App.css';
 import Album from './components/Album/index.js';
 import SpotifySearch from './components/Spotify/index.js';
-import './App.css';
-import Loginpage from './components/LoginPage/index.js'
+import LoginPage from './components/LoginPage/index.js';
+import PageRouter from './Route/index.js';
 
 function App() {
 
@@ -17,7 +18,9 @@ function App() {
         {/* <Album/> */}
         </div>
         {/* <SpotifySearch/> */}
-        <Loginpage/>
+        {/* <LoginPage/> */}
+        <PageRouter/>
+        {/* < LoginPage /> */}
       </div>
       
     </div>
