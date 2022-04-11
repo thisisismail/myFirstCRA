@@ -13,17 +13,14 @@ export default function Tracks({apidata, setSelectedsong, selectedsong}) {
   }
 
   const trackAlbumFiltered = apidata.map((v) => (
-    <div key={v.id}>
-      <h3 id="numbering">{iteration += 1}</h3>
-      <img id="cover-image" src={v.album.images[2].url} alt="GIF Image"></img>
-      <div id="track-text">
-        <h3>{v.name}</h3>
-        <h4>{v.album.artists[0].name},
-          <span id="track-sign"> {v.type}</span>
-          <span id="duration">{msecToSec(v.duration_ms)}</span>
-        </h4>
-        <AddPlaylistButton uri={v.uri} setSelectedsong={setSelectedsong} selectedsong={selectedsong}/>
-      </div>
+    <div className="trackAlbumContainer" key={v.id}>
+      <div id="numbering">{iteration += 1}</div>
+      <div id="track-image"><img src={v.album.images[2].url} alt="GIF"></img></div>
+      <div id="track-title">{v.name}</div>
+      <div id="track-artist">{v.album.artists[0].name}</div>
+      <div id="track-type"> {v.type}</div>
+      <div id="duration">{msecToSec(v.duration_ms)}</div>
+      <div id="select-btn"><AddPlaylistButton uri={v.uri} setSelectedsong={setSelectedsong} selectedsong={selectedsong}/></div>
     </div>
   ));
 

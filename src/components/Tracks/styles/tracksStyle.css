@@ -1,61 +1,96 @@
 .track-items {
-  position: relative;
-  top: 20px;
-  border: 0px solid black;
-  width: 720px;
-  margin: 0px auto;
-  font-size: 14px;
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: left;
+  margin-top: 40px;
 }
 
-#track-text {
-  border: 0px solid black;
-  width: 620px;
-  position: relative;
-  bottom: 64px;
-  left: 100px;
-  margin-bottom: -30px;
-}
-
-.track-items h3 {
-  font-weight: 600;
-  border: 0px solid black;
-  margin: 0px;
-}
-
-.track-items h4 {
-  font-weight: 400;
-  border: 0px solid black;
-  margin: 0px 0px 10px 0px;
+.trackAlbumContainer {
+  display: grid;
+  grid-template:  repeat(3, 30px)/40px 80px 1fr 90px;
+  /* border: 1px solid red; */
+  width: 100%;
+  max-width: 1080px;
+  min-width: 720px;
+  margin-bottom: 30px;
 }
 
 #numbering {
-  display: block;
-  height: 64px;
-  line-height: 64px;
-  float: left;
-  border: 0px solid black;
-  margin: 0px;
-  padding:0px 8px 0px 0px;
-  color: grey;
+  grid-column: 1/2;
+  grid-row: 1/4;
+  /* border: 1px solid blue; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 90px;
+}
+
+#track-image {
+  grid-column: 2/3;
+  grid-row: 1/4;
+  /* border: 1px solid blue; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#track-image img {
+  height: 100%
+}
+
+#track-title {
+  grid-column: 3/4;
+  grid-row: 1/2;
+  /* border: 1px solid blue; */
+  padding-left: 20px;
+  font: 18px solid black;
+  font-family: sans-serif ;
+  display: flex;
+  align-items: center;
+}
+
+#track-artist {
+  grid-column: 3/4;
+  grid-row: 2/3;
+  /* border: 1px solid blue; */
+  padding-left: 20px;
+  font: 14px solid black;
+  font-family: sans-serif ;
+  display: flex;
+  align-items: center;
+}
+
+#track-type {
+  grid-column: 3/4;
+  grid-row: 3/4;
+  /* border: 1px solid blue; */
+  padding-left: 20px;
+  font: 14px solid black;
+  font-family: sans-serif ;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+}
+
+#select-btn {
+  grid-column: 4/5;
+  grid-row: 1/2;
+  /* border: 1px solid blue; */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 #duration {
-  display: block;
-  position: relative;
-  float: right;
-  border: 0px solid black;
-  font-weight: 400;
-  top: 4px;
-  right: 26px;
+  grid-column: 4/5;
+  grid-row: 2/4;
+  /* border: 1px solid blue; */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-#track-sign {
-  font-weight: 400;
-  font-style: italic;
-}
-
-#cover-image {
-  display: inline-block;
-  border: 0px solid black;
-}

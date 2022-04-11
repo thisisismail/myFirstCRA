@@ -1,9 +1,7 @@
 .addPlaylist button{
   display: block;
-  position: absolute;
+  position: relative;
   z-index: 11;
-  bottom: 16px;
-  right: 0px;
   height: 20px;
   width: 80px;
   border-radius: 50px;
