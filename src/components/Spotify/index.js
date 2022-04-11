@@ -1,18 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import {useState, useEffect} from 'react';
 import SearchBar from '../SearchBar/index.js';
 import Tracks from '../Tracks/index.js';
 import Album from '../Album/index.js';
 import {connect} from 'react-redux';
-import tokenActions from '../../Redux/Token/actions/index.js'
 
 const SpotifySearch = (props) => {
 
-  const [btnauth, setBtnauth] = useState(false);
   const [search, setSearch] = useState('');
   const [btnsearch, setBtnsearch] = useState(false);
   const [authmsg, setAuthmsg] = useState('YOU ARE NOT AUTHORIZED');
-  const [loginmsg, setLoginmsg] = useState('LOGIN');
   const [apidata, setApidata] = useState([]);
   const [selectedsong, setSelectedsong] = useState([]);
   const [userid, setUserid] = useState('');
@@ -24,8 +22,7 @@ const SpotifySearch = (props) => {
   });
 
   useEffect(() =>{
-    if(props.tokenFromRedux !== ''){
-      setAuthmsg('YOU ARE AUTHORIZED'); setLoginmsg('RELOGIN')};
+    if(props.tokenFromRedux !== ''){setAuthmsg('YOU ARE AUTHORIZED')};
   }, [props.tokenFromRedux]);
 
   useEffect(() => {
@@ -38,7 +35,7 @@ const SpotifySearch = (props) => {
 
   useEffect(() => {
     inputToPlaylist();
-  }, [playlistid])
+  }, [playlistid]);
 
   const getSearch = async () => {
     if(props.tokenFromRedux === '' || search === ''){return 0};
@@ -97,11 +94,6 @@ const SpotifySearch = (props) => {
       .then(result => console.log(result))
       .then(() => console.log('Playlist Created'))
   }
-
-  const handleBtnAuth = () => {
-    setBtnauth(!btnauth);
-    console.log('Getting New Auth Token API ....');
-  };
   
   const handleBtnSearch = () => {
     setBtnsearch(!btnsearch);

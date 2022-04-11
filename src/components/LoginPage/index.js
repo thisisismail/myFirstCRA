@@ -18,7 +18,7 @@ const LoginPage = (props) => {
         .find((v) => v.startsWith("access_token"))
         .replace("access_token=", "");
     props.store(token);
-  }, [btn]);
+  });
 
   const btnGetToken = (e) => {
     setBtn(!btn);

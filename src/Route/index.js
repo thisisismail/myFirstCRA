@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Switch, Route, Redirect, Link } from 'react-router-dom'
 import SpotifySearch from '../components/Spotify/index.js';
 import LoginPage from '../components/LoginPage/index.js'
@@ -7,7 +6,6 @@ import {connect} from 'react-redux';
 import tokenActions from '../Redux/Token/actions/index.js'
 
 const PageRouter = (props) => {
-  let exact = true;  
   return (
     <Router>
       <Switch>
