@@ -1,8 +1,4 @@
 import React from 'react';
-import PlayButton from '../Button/PlayButton';
-import Tracks from '../Tracks';
-import AlbumImage from './AlbumImage';
-import AlbumTitle from './AlbumTitle';
 import './styles/albumStyle.css';
 
 const Album = ({getUserID, getInputPlaylist, playlist}) => {
