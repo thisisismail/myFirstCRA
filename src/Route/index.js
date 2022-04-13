@@ -1,29 +1,32 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import SpotifySearch from '../components/Spotify/index.js';
 import LoginPage from '../components/LoginPage/index.js'
 import {connect} from 'react-redux';
 import tokenActions from '../Redux/Token/actions/index.js'
+import {BrowserRouter} from 'react-router-dom'
+
+
 
 const PageRouter = (props) => {
   return (
+    <BrowserRouter>
     <Router>
       <Switch>
         <Route path="/" exact>
-          <Link to="/private">Dashboard</Link><br></br>
           <LoginPage/>
         </Route>
         <Route path="/private">
-          <Link to="/">Login</Link>
+          {/* <Link to="/">Login</Link><br></br><br></br> */}
           {
             (props.tokenFromRedux !== '') 
             ? ( <SpotifySearch/> ) 
             : ( <Redirect to="/"/> )
           }
-          {/* <h4>{props.tokenFromRedux}</h4> */}
         </Route>
       </Switch>
     </Router>
+    </BrowserRouter>
   )
 }
 

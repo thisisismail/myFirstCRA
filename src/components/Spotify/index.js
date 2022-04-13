@@ -5,6 +5,8 @@ import SearchBar from '../SearchBar/index.js';
 import Tracks from '../Tracks/index.js';
 import Album from '../Album/index.js';
 import {connect} from 'react-redux';
+import actions from '../../Redux/Token/actions/index.js';
+import { Alert, Dialog} from '@mui/material';
 
 const SpotifySearch = (props) => {
 
@@ -12,7 +14,8 @@ const SpotifySearch = (props) => {
   const [btnsearch, setBtnsearch] = useState(false);
   const [authmsg, setAuthmsg] = useState('YOU ARE NOT AUTHORIZED');
   const [apidata, setApidata] = useState([]);
-  const [selectedsong, setSelectedsong] = useState([]);
+  const [selectedsongURI, setSelectedsongURI] = useState([]);
+  const [selectedsongTitle, setSelectedsongTitle] = useState([]);
   const [userid, setUserid] = useState('');
   const [playlistid, setPlaylistid] = useState('');
   const [playlist, setPlaylist] = useState({
@@ -78,7 +81,7 @@ const SpotifySearch = (props) => {
   };
 
   const inputToPlaylist = async () => {
-    let tracks = selectedsong
+    let tracks = selectedsongURI
       .toString()
       .replace(/:/g,"%3A")
       .replace(/,/g,"%2C"); //convert array songs, so that can be processed directly in URL
@@ -93,13 +96,18 @@ const SpotifySearch = (props) => {
     }).then(response => response.json())
       .then(result => console.log(result))
       .then(() => console.log('Playlist Created'))
-  }
-  
+      .then(() => setPlaylist(previousState => {return { ...previousState, button: true }}))
+  };
+
   const handleBtnSearch = () => {
     setBtnsearch(!btnsearch);
     getSearch();
     console.log(authmsg);
     console.log('Submitted Input: ' + search);
+  };
+
+  const handleBtnCloseAlert = () => {
+    setPlaylist(previousState => {return { ...previousState, button: false }})
   };
 
   const getInputSearch = (v) => {
@@ -111,14 +119,39 @@ const SpotifySearch = (props) => {
     setPlaylist({...playlist, [name]: value});
   }
 
+  const alert = (
+    <div>
+      <Dialog
+        open={playlist.button}
+        onClose={handleBtnCloseAlert}
+      > 
+        <Alert severity="success">Successfully added new playlist</Alert>
+      </Dialog>
+    </div>
+  );
+
   return (
     <div>
-      <Album getUserID={getUserID} getInputPlaylist={getInputPlaylist} playlist={playlist}/>
-      <div>{authmsg}</div>
-        <SearchBar getInputSearch={getInputSearch} handleBtnSearch={handleBtnSearch}/>
-        <div>
-          <Tracks apidata={apidata} setSelectedsong={setSelectedsong} selectedsong={selectedsong}/>
-        </div>
+      {alert}
+      {/* <div>{authmsg}</div> */}
+      <Album 
+        getUserID={getUserID} 
+        getInputPlaylist={getInputPlaylist} 
+        playlist={playlist} 
+        selectedsongTitle={selectedsongTitle}
+      />
+      <SearchBar 
+        getInputSearch={getInputSearch} 
+        handleBtnSearch={handleBtnSearch}
+      />
+      <div>
+        <Tracks 
+          apidata={apidata} 
+          setSelectedsongURI={setSelectedsongURI} 
+          selectedsongURI={selectedsongURI} 
+          setSelectedsongTitle={setSelectedsongTitle}
+          selectedsongTitle={selectedsongTitle}/>
+      </div>
     </div>
   )
 }
@@ -129,4 +162,10 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(SpotifySearch);
+const mapDispatchToProps = dispatch => { // change global state
+  return{
+    store: (v) => dispatch(actions.tokenAction(v)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SpotifySearch);

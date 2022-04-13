@@ -1,7 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import tokenActions from '../../Redux/Token/actions/index.js';
+import {Button, Link} from '@mui/material/';
+import actions from '../../Redux/Token/actions/index.js';
+import {useHistory} from 'react-router-dom'
 
 const ID = process.env.REACT_APP_API_CLIENT_ID;
 const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
@@ -11,6 +14,12 @@ const LoginPage = (props) => {
 
   const [btn, setBtn] = useState(false);
 
+  let history = useHistory();
+
+  const goPrivate = () => {
+    history.push("/private");
+  };
+
   useEffect(() => {
     const token = window.location.hash && window.location.hash
         .substring(1)
@@ -18,7 +27,15 @@ const LoginPage = (props) => {
         .find((v) => v.startsWith("access_token"))
         .replace("access_token=", "");
     props.store(token);
+    console.log(props.tokenFromRedux)
   });
+
+  useEffect((e) => {
+    if(props.tokenFromRedux !== ''){
+        goPrivate();
+        console.log(props.tokenFromRedux);
+    }
+  }, [props.tokenFromRedux])
 
   const btnGetToken = (e) => {
     setBtn(!btn);
@@ -26,10 +43,16 @@ const LoginPage = (props) => {
 
   return (
     <div>
-        <a href={AUTH_URL}><button onClick={btnGetToken}>LOGIN</button></a>
+        <Link href={AUTH_URL} underline="none">
+          <Button variant="contained" onClick={btnGetToken}>
+            LOGIN
+          </Button>
+        </Link>
     </div>
   )
 }
+
+
 
 const mapStateToProps = state => { // call global state
   return{
@@ -39,7 +62,7 @@ const mapStateToProps = state => { // call global state
 
 const mapDispatchToProps = dispatch => { // change global state
   return{
-    store: (v) => dispatch(tokenActions(v)),
+    store: (v) => dispatch(actions.tokenAction(v)),
   }
 }
 

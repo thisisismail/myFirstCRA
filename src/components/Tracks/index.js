@@ -2,7 +2,7 @@ import React from 'react';
 import './styles/tracksStyle.css';
 import AddPlaylistButton from '../Button/AddPlaylistButton.js'
 
-export default function Tracks({apidata, setSelectedsong, selectedsong}) {
+export default function Tracks({apidata, setSelectedsongURI, selectedsongURI, setSelectedsongTitle, selectedsongTitle}) {
 
   let iteration = 0;
 
@@ -20,7 +20,15 @@ export default function Tracks({apidata, setSelectedsong, selectedsong}) {
       <div id="track-artist">{v.album.artists[0].name}</div>
       <div id="track-type"> {v.type}</div>
       <div id="duration">{msecToSec(v.duration_ms)}</div>
-      <div id="select-btn"><AddPlaylistButton uri={v.uri} setSelectedsong={setSelectedsong} selectedsong={selectedsong}/></div>
+      <div id="select-btn">
+        <AddPlaylistButton 
+          uri={v.uri} title={v.name} 
+          setSelectedsongURI={setSelectedsongURI} 
+          selectedsongURI={selectedsongURI} 
+          setSelectedsongTitle={setSelectedsongTitle}
+          selectedsongTitle={selectedsongTitle}
+        />
+      </div>
     </div>
   ));
 

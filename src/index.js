@@ -5,16 +5,20 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
+import {BrowserRouter} from 'react-router-dom'
 import allReducers from './Redux/Token/reducers/index.js'
+
 
 const stateStore = createStore(allReducers);
 
 
 ReactDOM.render(
   <Provider store={stateStore}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    {/* <BrowserRouter> */}
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    {/* </BrowserRouter> */}
   </Provider>
   ,document.getElementById('root')
 );
