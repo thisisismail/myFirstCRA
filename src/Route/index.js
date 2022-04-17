@@ -1,6 +1,6 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
-import SpotifySearch from '../components/Spotify/index.js';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import SpotifySearch from '../components/Spotify/typescript/index.tsx';
 import LoginPage from '../components/LoginPage/index.js'
 import {connect} from 'react-redux';
 import tokenActions from '../Redux/Token/actions/index.js'

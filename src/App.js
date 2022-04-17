@@ -1,7 +1,5 @@
 import './App.css';
 import PageRouter from './Route/index.js';
-import {BrowserRouter} from 'react-router-dom'
-
 
 function App() {
 
