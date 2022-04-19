@@ -22,7 +22,7 @@ export default function Tracks({apidata, setSelectedsongURI, selectedsongURI, se
     return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
   }
 
-  const trackAlbumFiltered = apidata.map((v: trackStruck) => (
+  const trackAlbumFiltered = apidata?.map((v: trackStruck) => (
     <div className="trackAlbumContainer" key={v.id}>
       <div id="numbering">{iteration += 1}</div>
       <div id="track-image"><img src={v.album.images[2].url} alt="GIF"></img></div>
@@ -32,7 +32,8 @@ export default function Tracks({apidata, setSelectedsongURI, selectedsongURI, se
       <div id="duration">{msecToSec(v.duration_ms)}</div>
       <div id="select-btn">
         <AddPlaylistButton 
-          uri={v.uri} title={v.name} 
+          uri={v.uri} 
+          title={v.name} 
           setSelectedsongURI={setSelectedsongURI} 
           selectedsongURI={selectedsongURI} 
           setSelectedsongTitle={setSelectedsongTitle}
@@ -43,6 +44,6 @@ export default function Tracks({apidata, setSelectedsongURI, selectedsongURI, se
   ));
 
   return(
-    <div className='track-items'>{trackAlbumFiltered}</div>
+    <div className='track-items' data-testid='list-of-tracks'>{trackAlbumFiltered}</div>
   );
 }

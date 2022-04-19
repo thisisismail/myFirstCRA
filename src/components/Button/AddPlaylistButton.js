@@ -21,8 +21,8 @@ const AddPlaylistButton = ({uri, title, setSelectedsongURI, selectedsongURI, set
     }else{
       setBtnmessage('select');
       setBtncolor(btnOff);
-      setSelectedsongURI(selectedsongURI.slice(0, -1)); //need improvement for deleting item from the state
-      setSelectedsongTitle(selectedsongTitle.slice(0, -1)); //need improvement for deleting item from the state
+      setSelectedsongURI(selectedsongURI?.slice(0, -1)); //need improvement for deleting item from the state
+      setSelectedsongTitle(selectedsongTitle?.slice(0, -1)); //need improvement for deleting item from the state
     }
   }, [btnstatus])
 
